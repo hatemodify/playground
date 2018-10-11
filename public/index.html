@@ -1,33 +1,166 @@
 <html>
-	<head>
-		<title>Three.js Boilerplate</title>
-		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
-      .aaa{
 
+  <head>
+    <title>Three.js Boilerplate</title>
+    <style>
+      body {
+        margin: 0;
       }
-      .b{
+
+      canvas {
+        width: 100%;
+        height: 100%
+      }
+
+      .aaa {}
+
+      .b {
         color: #fff;
         position: absolute;
         top: 50%;
         font-size: 30px;
         left: 50%;
-        perspective:center;
+        perspective: center;
       }
-		</style>
-	</head>
-	<body>
-    <div class="aaa">      
+
+      body {
+        background: #1a1a1a;
+      }
+
+      .wrap_txt {
+        overflow: hidden;
+        color: #fff;
+        font-size: 60px;
+      }
+
+      .txt_type {
+        color: #ffbc00;
+        float: left;
+      }
+
+      .txt_fixed {
+        float: left;
+        color: #fff;
+      }
+
+      .txt_en {
+        display: block;
+        clear: both;
+        font-size: 23px;
+        text-transform: uppercase;
+      }
+
+      .cursor {
+        float: left;
+        height: 60px;
+        width: 1px;
+        background: #fff;
+        margin: 0 2px;
+        animation: .8s toggle infinite;
+      }
+
+      @keyframes toggle {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div class="aaa">
     </div>
+
     <div class="b">ㅁ니아ㅓ마너이ㅏ먼이ㅏㅓㅁ니아ㅓ미나어ㅣㅁ나ㅓ이ㅏ</div>
+    <!-- <div class="wrap_txt">
+      <span class="txt_type" data-period="2000" data-type='["ㅅㄱ", "생각", "사고", "시각","사각"]'>
+      </span>
+      <span class="cursor"></span>
+      <span class="txt_fixed">의 틀을 깨다.</span>
+      <span class="txt_en">out square</span>
+    </div> -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="http://sole.github.io/tween.js/build/tween.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
-		<script src="js/OrbitControls.js"></script>
-		<script src="js/OBJLoader.js"></script>
-		<script src="js/MTLLoader.js"></script>
-		<script src="js/scripts.js"></script>
-	</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/OBJLoader.js"></script>
+    <script src="js/MTLLoader.js"></script>
+    <!-- <script src="js/scripts.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.9/typed.min.js">
+    </script>
+    <script>
+      // var typed = new Typed('.asd', {
+      //   strings: ['ㅅㄱ','생각', '사고', '시각', '사각'],
+
+      //   typeSpeed: 150,
+      //   smartBackspace:true
+      // });
+
+
+      var TxtType = function (el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+      };
+
+      TxtType.prototype.tick = function () {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+          this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+          this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+        var that = this;
+        var delta = 200 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+          delta = this.period;
+          this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+          this.isDeleting = false;
+          this.loopNum++;
+          delta = 500;
+        }
+
+        setTimeout(function () {
+          that.tick();
+        }, delta);
+      };
+
+      window.onload = function () {
+        var $txt = '<div class="wrap_txt"><span class="txt_type"></span><span class="cursor"></span><span class="txt_fixed">의 틀을 깨다.</span><span class="txt_en">out square</span></div>';
+
+        $('body').append($txt);
+        $('.txt_type').attr('data-type', '["ㅅㄱ", "생각", "사고", "시각", "사각"]');
+        var elements = document.querySelector('.txt_type');
+  
+          var toRotate = elements.getAttribute('data-type');          
+          var period = 3000;
+          if (toRotate) {
+            new TxtType(elements, JSON.parse(toRotate), period);
+          }
+     
+      };
+
+
+    </script>
+  </body>
+
 </html>
