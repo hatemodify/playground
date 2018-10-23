@@ -25,3 +25,9 @@ app.get('/', (req, res) => {
   });
   console.log(res);
 });
+
+app.get('/test', (req, res) => {
+  res.render('index2.html', {
+  });
+  console.log(res);
+});

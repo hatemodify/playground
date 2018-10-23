@@ -1,7 +1,6 @@
 {
   "name": "playground",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -13,6 +12,18 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
-    "method-override": "^3.0.0"
-  }
+    "method-override": "^3.0.0",
+    "parcel": "^1.10.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hatemodify/playground.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/hatemodify/playground/issues"
+  },
+  "homepage": "https://github.com/hatemodify/playground#readme",
+  "description": ""
 }
