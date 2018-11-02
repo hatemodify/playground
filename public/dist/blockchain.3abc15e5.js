@@ -104,74 +104,69 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"../../Users/jaehyuc/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
+})({"js/blockchain.js":[function(require,module,exports) {
+"use strict";
 
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Blockchain =
+/*#__PURE__*/
+function () {
+  function Blockchain() {
+    _classCallCheck(this, Blockchain);
+
+    this.chain = [];
+    this.newTransactions = [];
   }
 
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
+  _createClass(Blockchain, [{
+    key: "createNewBlock",
+    value: function createNewBlock(nonce, previousBlockHash, hash) {
+      var newBlock = {
+        index: this.chain.length + 1,
+        timeStamp: Date.now(),
+        transaction: this.newTransactions,
+        nonce: nonce,
+        hash: hash,
+        previousBlockHash: previousBlockHash
+      };
+      this.newTransactions = [];
+      this.chain.push(newBlock);
+      return newBlock;
     }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../../Users/jaehyuc/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
+  }, {
+    key: "getLastBlock",
+    value: function getLastBlock() {
+      return this.chain[this.chain.length - 1];
     }
+  }, {
+    key: "createNewTransaction",
+    value: function createNewTransaction(amount, sender, recipient) {
+      var newTransaction = {
+        amount: amount,
+        sender: sender,
+        recipient: recipient
+      };
+      this.newTransactions.push(newTransaction);
+      return this.getLastBlock()['index'] + 1;
+    }
+  }]);
 
-    cssTimeout = null;
-  }, 50);
-}
+  return Blockchain;
+}();
 
-module.exports = reloadCSS;
-},{"./bundle-url":"../../Users/jaehyuc/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js"}],"../../Users/jaehyuc/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var _default = Blockchain;
+exports.default = _default;
+},{}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -198,11 +193,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-<<<<<<< Updated upstream
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "6813" + '/');
-=======
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54214" + '/');
->>>>>>> Stashed changes
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58797" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
@@ -344,4 +335,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../Users/jaehyuc/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js"], null)
+},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/blockchain.js"], null)
+//# sourceMappingURL=/blockchain.3abc15e5.map

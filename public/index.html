@@ -85,11 +85,7 @@
   </head>
 
   <body>
-    <div class="rail">
-      <span class="left"></span>
-      <span class="right"></span>
-    </div>
-
+    <div class="aaa"></div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
@@ -100,43 +96,10 @@
     <script src="js/OrbitControls.js"></script>
     <script src="js/OBJLoader.js"></script>
     <script src="js/MTLLoader.js"></script>
-    <!-- <script src="js/scripts.js"></script> -->
+    <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.9/typed.min.js">
     </script>
-    <script>
-      $(function () {
-        $('.right').draggable({
-          axis: 'x',
-          // containment: '.rail',
-          drag: function () {
-            if (l == 0) {
-              $(this).draggable().stop();
-            } else {
-              var l = parseInt($('.right').css('left'));
-              console.log(l);
-              $('.rail').css('width', l + 40);
-            }
-          }
-        })
-      });
 
-      $('.left').draggable({
-        axis: 'x',
-        containment: '.rail',
-        drag: function () {
-          if (l == 0) {
-            $(this).draggable().stop();
-          } else {
-            var l = parseInt($('.left').css('left'));
-            console.log(l);
-            // $('.rail').css('width', l - 40);
-            $('.rail').css('margin-left', l );
-          }
-        }
-      });
-
-
-    </script>
   </body>
 
 </html>

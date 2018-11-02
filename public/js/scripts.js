@@ -6,6 +6,7 @@ var camera = new THREE.PerspectiveCamera(
   1,
   2000
 );
+var particle;
 camera.position.z = 5000;
 
 var mouseX;
@@ -17,7 +18,33 @@ scene.background = new THREE.Color(1710618);
 var e = new THREE.AmbientLight(16777215, 1);
 var l = new THREE.PointLight(16777215, 1);
 
+particle = new THREE.Object3D();
+
 scene.add(e);
+scene.add(particle);
+
+var geometry = new THREE.TetrahedronGeometry(2, 0);
+var geom = new THREE.IcosahedronGeometry(7, 1);
+var geom2 = new THREE.IcosahedronGeometry(15, 1);
+
+const meterial = new THREE.MeshPhongMaterial({
+  color: 0x333333,
+  shading: THREE.FlatShading
+});
+
+
+
+
+
+for (let i = 0; i < 1000; i++) {
+  const mesh = new THREE.Mesh(geometry, meterial);
+  mesh.position
+    .set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5)
+    .normalize();
+  mesh.position.multiplyScalar(90 + Math.random() * 700);
+  mesh.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
+  particle.add(mesh);
+}
 
 l.position.set(0, 1, 0), (l.castShadow = !0), camera.add(l), scene.add(camera);
 
@@ -116,6 +143,8 @@ mtlLoader.load('a.mtl', function(materials) {
 
 var animate = function() {
   requestAnimationFrame(animate);
+  particle.rotation.x += 0.0;
+  particle.rotation.y -= 0.004;
   controls.update();
   renderer.render(scene, camera);
 };

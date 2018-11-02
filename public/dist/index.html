@@ -83,8 +83,7 @@
   </head>
 
   <body>
-
-
+    <div class="aaa"></div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
@@ -94,48 +93,10 @@
     <script src="/OrbitControls.86a60464.js"></script>
     <script src="/OBJLoader.cef44b75.js"></script>
     <script src="/MTLLoader.c4c67c4e.js"></script>
-    <script src="/js.00a46daa.js"></script>
-    <!-- <script src="js/scripts.js"></script> -->
+    <script src="/scripts.cd665a19.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.9/typed.min.js">
     </script>
-    <script>
-        navigator.geolocation.getCurrentPosition((position)=>{
-          var latitude  = position.coords.latitude;
-          var longitude = position.coords.longitude;
 
-          var img = new Image();
-          img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-console.log(latitude, longitude)
-        })
-    
-    $(function () {
-
-
-
-      
-  $('.right').draggable({
-    axis: 'x',
-    // containment: '.rail',
-    drag: function drag(event, ui) {
-      console.log(ui);
-    }
-  });
-});
-$('.left').draggable({
-  axis: 'x',
-  containment: '.rail',
-  drag: function drag() {
-    if (l == 0) {
-      $(this).draggable().stop();
-    } else {
-      var l = parseInt($('.left').css('left'));
-      console.log(l); // $('.rail').css('width', l - 40);
-
-      $('.rail').css('margin-left', l);
-    }
-  }
-});</script>
   </body>
 
 </html>
