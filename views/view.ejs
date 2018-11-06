@@ -1,20 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<% include header.ejs %>
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-  </head>
+<body>
+  <div id="wrap">
+    <div class="container">
+      <h3 class="tit_cont">
+        <%= board.tit %>
+      </h3>
+      <div class="wrap_cont">
+        <%- board.cont %>
 
-  <body>
-    <h3>
-      <%= board.tit %>
-    </h3>
-    <div>
-      <%= board.cont %>
+      </div>
+      <form method="post" class="form_reply">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="text" name="name" placeholder="이름" id="inpName">
+        <input type="password" name="password" placeholder="비밀번호" id="inpPassword">
+        <textarea name="content" placeholder="내용" id="inpCont"></textarea>
+        <button type="submit" class="btn_save">저장</button>
+      </form>
+      <div>
+        <%if (board.reply) { %>
+        <% board.reply.forEach(function(reply) { %>
+        <%= reply.name %>
+        <%= reply.content %>
+        <% }) %>
+        <% } %>
+      </div>
     </div>
-  </body>
+  </div>
+  <script>
+    const wrap = document.querySelector('.container');
+    const replyForm = wrap.querySelector('.form_reply');
+    const btnSave = replyForm.querySelector('.btn_save');
+    
+    const chkForm = () =>{
+      const name = wrap.querySelector('#inpName');
+      const password = wrap.querySelector('#inpPassword');
+      const cont = wrap.querySelector('#inpCont');
+      if(!name.value || !password.value || cont.value){
+        alert('이름을 입력하세요')
+      }else{
+        replyForm.submit();
+        location.reload();
+      }
+    }
+
+
+    wrap.addEventListener('click' , chkForm); 
+
+
+
+
+  </script>
+</body>
 
 </html>

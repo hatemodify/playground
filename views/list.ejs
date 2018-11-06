@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<% include header.ejs %>
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-  </head>
-
-  <body>
-    <ul>
-      <% boards.forEach(function(board) { %>
-      <li>
-        <a class="post-subject" href="/view/<%= board._id %>">
-          <%= board.tit %>
-        </a>
-
-        <%= board.createdDate %>
-      </li>
-      <% }) %>
-    </ul>
-  </body>
+<body>
+  <div id="wrap">
+    <div class="container">
+      <ul class="list_cont">
+        <% boards.forEach(function(board) { %>
+   
+        <li <% if(board.createdDate == today) {%>class="new"<%}%>>
+          <a class="link_cont" href="/view/<%= board._id %>">
+            <%= board.tit %>
+          </a>
+          <span class="txt_date">
+            <%= board.createdDate %>
+          </span>
+        </li>
+        <% }) %>
+    </div>
+  </div>
+</body>
 
 </html>

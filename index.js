@@ -53,30 +53,50 @@ rule.minute = 1;
 app.get('/list', (req, res) => {
   Board.find({}, 'tit cont author createdAt', (err, boards) => {
     if (err) console.log(err);
-    res.render('list', { boards });
+    res.render('list', { boards, today:getDate(date)  });
   });
 });
 
 app.get('/view/:id', (req, res) => {
-  console.log(req.params.id);
-
   Board.findOne(
     {
       _id: req.params.id
     },
-    'tit author cont',
+    'tit author cont reply',
     (err, board) => {
       if (err) {
         console.log(err);
       }
-      console.log(board);
-      res.render('view', { board });
+      res.render('view', { board, id: req.params.id });
+    }
+  );
+});
+
+app.post('/view/:id', (req, res) => {
+  const replyCont = {
+    name: req.body.name,
+    password: req.body.password,
+    content: req.body.content
+  };
+  console.log(replyCont);
+  Board.findOneAndUpdate(
+    {
+      _id: req.params.id
+    },
+    {
+      $push: {
+        reply: replyCont
+      }
+    },
+    success => {
+      console.log('success');
     }
   );
 });
 
 schedule.scheduleJob('*/1 * * * *', () => {
   console.log(date);
+
   crwal();
 });
 
@@ -94,39 +114,46 @@ const crwal = async () => {
   await page.goto('https://media.daum.net/economic');
   await page.waitForSelector('ul.list_issue a.link_txt');
   const stories = await page.$$eval('a.link_txt', anchors => {
-    return anchors.map(anchor => anchor.href).slice(0, 3);
+    return anchors.map(anchor => anchor.href).slice(0, 10);
   });
-  console.log(stories);
 
   for (let storyLink of stories) {
     await page.goto(storyLink);
     const tit = await page.$eval('.tit_view', element => {
       return element.innerHTML;
     });
-    console.log(tit);
-    const cont = await page.$eval('.cont_view', element => {
-      console.log(element);
-      return JSON.parse(element.innerHTML);
+
+    const cont = await page.$eval('.news_view', element => {
+      return element.innerHTML;
     });
     tempObj.tit = tit;
     tempObj.cont = cont;
     tempArr.push(tempObj);
-    // const tit = await page.evaluate('.head_view', element => {
-    //   return element.innerHTML;
-    // });
-    // const cont = await page.$eval(selector, element => {
-    //   return element.innerHTML;
-    // });
 
-    const new_contents = new Board({
-      tit,
-      cont
-    });
-
-    new_contents.save(err => {
-      err ? console.log(err) : console.log('success');
+    Board.find({ tit: tit }, (err, board, result) => {
+      const new_contents = new Board({ tit, cont });
+      new_contents.save(err => {
+        err ? console.log(err) : console.log('success');
+      });
     });
   }
 
   await browser.close();
 };
+
+
+
+function getDate (dateObj){
+  if (dateObj instanceof Date)
+    return (
+      dateObj.getFullYear() +
+      '-' +
+      get2digits(dateObj.getMonth() + 1) +
+      '-' +
+      get2digits(dateObj.getDate())
+    );
+};
+
+function get2digits(num){
+  return ("0" + num).slice(-2);
+}
