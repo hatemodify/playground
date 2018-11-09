@@ -11,6 +11,8 @@ const mongoose = require('mongoose');
 const ejs = require('ejs');
 const app = express();
 
+
+mongoose.set('useCreateIndex', true)
 mongoose.connect(
   'mongodb://admin:asdasd12@ds151753.mlab.com:51753/crwal',
   { useNewUrlParser: true }
