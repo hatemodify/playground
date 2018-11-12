@@ -5,7 +5,8 @@
 
 .container .tit_cont {
   font-size: 3.2rem;
-  padding-bottom: 10px;
+  padding: 30px 20px 10px;
+  line-height: 1.3;
   border-bottom: 1px solid #e3e3e3;
   color: #000; }
 
@@ -29,7 +30,7 @@
   border-bottom: 1px solid #e3e3e3; }
 
 .list_cont li.new .link_cont:after {
-  content: "N";
+  content: 'N';
   background: #ff4400;
   color: #fff;
   padding: 0 3px;
@@ -48,3 +49,64 @@
   float: right;
   font-size: 1.4rem;
   color: #555; }
+
+.form_reply {
+  padding: 0 20px 30px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e3e3e3; }
+
+.form_reply #inpName,
+.form_reply #inpPassword {
+  float: left;
+  height: 30px;
+  margin: 20px 10px 5px 0;
+  width: 120px;
+  border: none;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e3e3e3; }
+
+.form_reply #inpCont {
+  float: left;
+  width: calc(100% - 100px);
+  padding: 5px;
+  resize: none;
+  height: 80px;
+  border: 1px solid #e3e3e3; }
+
+.form_reply .btn_save {
+  float: right;
+  width: 80px;
+  height: 80px;
+  color: #fff;
+  font-size: 15px;
+  border: none;
+  background: #3a3a3a; }
+
+.list_reply {
+  clear: both;
+  padding: 0 20px; }
+
+.list_reply li {
+  padding: 20px 0;
+  border-bottom: 1px solid #e3e3e3; }
+
+.list_reply li .txt_name,
+.list_reply li .txt_date {
+  float: left;
+  font-size: 14px; }
+
+.list_reply li .txt_name {
+  margin-right: 15px;
+  color: #555; }
+
+.list_reply li .txt_date {
+  color: #999; }
+
+.list_reply li .txt_cont {
+  display: block;
+  line-height: 1.5;
+  word-break: keep-all;
+  clear: both;
+  padding-top: 15px;
+  font-size: 14px; }

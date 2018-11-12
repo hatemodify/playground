@@ -15,16 +15,21 @@
         <input type="text" name="name" placeholder="이름" id="inpName">
         <input type="password" name="password" placeholder="비밀번호" id="inpPassword">
         <textarea name="content" placeholder="내용" id="inpCont"></textarea>
-        <button type="submit" class="btn_save">저장</button>
+        <button type="submit" class="btn_save">등록</button>
       </form>
-      <div>
+      <ul class="list_reply">
         <%if (board.reply) { %>
         <% board.reply.forEach(function(reply) { %>
-        <%= reply.name %>
-        <%= reply.content %>
+        <li>
+          <span class="txt_name"><%= reply.name %></span>
+          <span class="txt_date"><%= reply.regdate %></span>
+          <div class="txt_cont">
+            <%= reply.content %>
+          </div>
+        </li>
         <% }) %>
         <% } %>
-      </div>
+      </ul>
     </div>
   </div>
   <script>
@@ -36,20 +41,13 @@
       const name = wrap.querySelector('#inpName');
       const password = wrap.querySelector('#inpPassword');
       const cont = wrap.querySelector('#inpCont');
-      if(!name.value || !password.value || cont.value){
-        alert('이름을 입력하세요')
+      if(!name.value || !password.value || !cont.value){
+        alert('이름을 입력하세요');
       }else{
         replyForm.submit();
-        location.reload();
       }
     }
-
-
-    wrap.addEventListener('click' , chkForm); 
-
-
-
-
+    btnSave.addEventListener('click' , chkForm); 
   </script>
 </body>
 

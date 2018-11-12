@@ -4,7 +4,8 @@
   margin: auto;
   .tit_cont {
     font-size: 3.2rem;
-    padding-bottom: 10px;
+    padding: 30px 20px 10px;
+    line-height: 1.3;
     border-bottom: 1px solid #e3e3e3;
     color: #000;
   }
@@ -23,18 +24,18 @@
     }
   }
 }
-.list_cont{
-  li{
+.list_cont {
+  li {
     overflow: hidden;
     padding: 10px;
     border-bottom: 1px solid #e3e3e3;
-    &.new{
-      .link_cont{
-        &:after{
-          content: "N";
+    &.new {
+      .link_cont {
+        &:after {
+          content: 'N';
           background: rgb(255, 68, 0);
           color: #fff;
-          padding:0 3px;
+          padding: 0 3px;
           border-radius: 3px;
           font-size: 11px;
           line-height: 1;
@@ -42,16 +43,77 @@
       }
     }
   }
-  .link_cont{
+  .link_cont {
     color: #111;
     font-size: 1.6rem;
-    &:visited{
-      color: #ccc
+    &:visited {
+      color: #ccc;
     }
   }
-  .txt_date{
+  .txt_date {
     float: right;
     font-size: 1.4rem;
     color: #555;
+  }
+}
+.form_reply {
+  padding: 0 20px 30px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e3e3e3;
+  #inpName,
+  #inpPassword {
+    float: left;
+    height: 30px;
+    margin: 20px 10px 5px 0;
+    width: 120px;
+    border: none;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e3e3e3;
+  }
+  #inpCont {
+    float: left;
+    width: calc(100% - 100px);
+    padding: 5px;
+    resize: none;
+    height: 80px;
+    border: 1px solid #e3e3e3;
+  }
+  .btn_save {
+    float: right;
+    width: 80px;
+    height: 80px;
+    color: #fff;
+    font-size: 15px;
+    border: none;
+    background: rgb(58, 58, 58);
+  }
+}
+.list_reply {
+  clear: both;
+  padding: 0 20px;
+  li {
+    padding: 20px 0;
+    border-bottom: 1px solid #e3e3e3;
+    .txt_name,
+    .txt_date {
+      float: left;
+      font-size: 14px;
+    }
+    .txt_name {
+      margin-right: 15px;
+      color: #555;
+    }
+    .txt_date {
+      color: #999;
+    }
+    .txt_cont {
+      display: block;
+      line-height: 1.5;
+      word-break: keep-all;
+      clear: both;
+      padding-top: 15px;
+      font-size: 14px;
+    }
   }
 }

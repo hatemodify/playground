@@ -11,8 +11,7 @@ const mongoose = require('mongoose');
 const ejs = require('ejs');
 const app = express();
 
-
-mongoose.set('useCreateIndex', true)
+mongoose.set('useCreateIndex', true);
 mongoose.connect(
   'mongodb://admin:asdasd12@ds151753.mlab.com:51753/crwal',
   { useNewUrlParser: true }
@@ -55,7 +54,7 @@ rule.minute = 1;
 app.get('/list', (req, res) => {
   Board.find({}, 'tit cont author createdAt', (err, boards) => {
     if (err) console.log(err);
-    res.render('list', { boards, today:getDate(date)  });
+    res.render('list', { boards, today: getDate(date) });
   });
 });
 
@@ -75,12 +74,13 @@ app.get('/view/:id', (req, res) => {
 });
 
 app.post('/view/:id', (req, res) => {
+  const date = new Date();
   const replyCont = {
     name: req.body.name,
     password: req.body.password,
-    content: req.body.content
+    content: req.body.content,
+    regdate: getDate2(date)
   };
-  console.log(replyCont);
   Board.findOneAndUpdate(
     {
       _id: req.params.id
@@ -96,7 +96,7 @@ app.post('/view/:id', (req, res) => {
   );
 });
 
-schedule.scheduleJob('*/1 * * * *', () => {
+schedule.scheduleJob('*/60 * * * *', () => {
   console.log(date);
 
   crwal();
@@ -114,7 +114,7 @@ const crwal = async () => {
   let tempArr = [];
   let tempObj = {};
   await page.goto('https://media.daum.net/economic');
-  await page.waitForSelector('ul.list_issue a.link_txt');
+  await page.waitForSelector('.list_mainnews a.link_txt');
   const stories = await page.$$eval('a.link_txt', anchors => {
     return anchors.map(anchor => anchor.href).slice(0, 10);
   });
@@ -143,9 +143,7 @@ const crwal = async () => {
   await browser.close();
 };
 
-
-
-function getDate (dateObj){
+function getDate(dateObj) {
   if (dateObj instanceof Date)
     return (
       dateObj.getFullYear() +
@@ -154,8 +152,27 @@ function getDate (dateObj){
       '-' +
       get2digits(dateObj.getDate())
     );
-};
+}
 
-function get2digits(num){
-  return ("0" + num).slice(-2);
+function get2digits(num) {
+  return ('0' + num).slice(-2);
+}
+
+function getDate2(dateObj) {
+  if (dateObj instanceof Date)
+    return (
+      dateObj.getFullYear() +
+      '-' +
+      get2digits(dateObj.getMonth() + 1) +
+      '-' +
+      get2digits(dateObj.getDate()) +
+      ' ' +
+      get2digits(dateObj.getHours()) +
+      ':' +
+      get2digits(dateObj.getMinutes())
+    );
+}
+
+function get2digits(num) {
+  return ('0' + num).slice(-2);
 }
