@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="assets/css/play.css" />
+    <title>Document</title>
+    <style>
+      #canvas1{
+        width: 1280px;
+        height: 720px;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="video" autoplay muted loop>
+      <source src="assets/Night Life Party.mp4" type="video/mp4">
+    </video>
+    <canvas id="canvas1"></canvas>
+    <canvas id="canvas2"></canvas>
+    <canvas id="canvas3"></canvas>
+
+
+
+    <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script>
+      $(function() {
+        var canvas1 = document.getElementById('canvas1');
+        var canvas2 = document.getElementById('canvas2');
+        var canvas3 = document.getElementById('canvas3');
+        var ctx1 = canvas1.getContext('2d');
+        var ctx2 = canvas2.getContext('2d');
+        var ctx3 = canvas3.getContext('2d');
+        var video = document.getElementById('video');
+        console.log(video);
+   
+        video.addEventListener('click', function(){
+          video.play();
+        })
+
+        $(window).load(function(){
+          
+          var $this = video; //cache
+          function loop() {
+            if (!$this.paused && !$this.ended) {
+              ctx1.drawImage($this, 0, 0);
+
+              setTimeout(loop, 1000 / 30); // drawing at 30fps
+            }
+          };
+          loop();
+        })
+
+      });
+
+    </script>
+  </body>
+</html>
